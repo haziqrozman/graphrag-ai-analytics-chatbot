@@ -1,0 +1,12 @@
+# requirements.txt
+# Python dependencies for the GraphRAG AI Analytics Chatbot.
+# Install using: pip install -r requirements.txt
+
+gradio
+puppygraph==0.1.6
+langchain==0.3.28
+langchain-core==0.3.84
+langchain-openai==0.3.35
+langchain-community==0.3.31
+openai==2.32.0
+python-dotenv

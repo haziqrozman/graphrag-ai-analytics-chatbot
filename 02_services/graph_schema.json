@@ -1,0 +1,243 @@
+{
+  "catalogs": [
+    {
+      "name": "mssql",
+      "type": "sqlserver",
+      "jdbc": {
+        "username": "username",
+        "password": "password",
+        "jdbcUri": "jdbc:sqlserver://host.docker.internal:1433;databaseName=DataAnalytics;encrypt=false;",
+        "enableMetaCache": "true",
+        "metaCacheExpireSec": "600"
+      }
+    }
+  ],
+  "graph": {
+    "vertices": [
+      {
+        "label": "Customer",
+        "oneToOne": {
+          "tableSource": {
+            "catalog": "mssql",
+            "schema": "gold",
+            "table": "dim_customers"
+          },
+          "id": {
+            "fields": [
+              {
+                "type": "INT",
+                "field": "customer_key",
+                "alias": "puppy_id_customer_key"
+              }
+            ]
+          },
+          "attributes": [
+            {
+              "type": "INT",
+              "field": "customer_key",
+              "alias": "customer_key"
+            },
+            {
+              "type": "INT",
+              "field": "customer_id",
+              "alias": "customer_id"
+            },
+            {
+              "type": "STRING",
+              "field": "customer_number",
+              "alias": "customer_number"
+            },
+            {
+              "type": "STRING",
+              "field": "first_name",
+              "alias": "first_name"
+            },
+            {
+              "type": "STRING",
+              "field": "last_name",
+              "alias": "last_name"
+            },
+            {
+              "type": "STRING",
+              "field": "country",
+              "alias": "country"
+            },
+            {
+              "type": "STRING",
+              "field": "marital_status",
+              "alias": "marital_status"
+            },
+            {
+              "type": "STRING",
+              "field": "gender",
+              "alias": "gender"
+            },
+            {
+              "type": "DATE",
+              "field": "birthdate",
+              "alias": "birthdate"
+            },
+            {
+              "type": "DATE",
+              "field": "create_date",
+              "alias": "create_date"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Product",
+        "oneToOne": {
+          "tableSource": {
+            "catalog": "mssql",
+            "schema": "gold",
+            "table": "dim_products"
+          },
+          "id": {
+            "fields": [
+              {
+                "type": "INT",
+                "field": "product_key",
+                "alias": "puppy_id_product_key"
+              }
+            ]
+          },
+          "attributes": [
+            {
+              "type": "INT",
+              "field": "product_key",
+              "alias": "product_key"
+            },
+            {
+              "type": "INT",
+              "field": "product_id",
+              "alias": "product_id"
+            },
+            {
+              "type": "STRING",
+              "field": "product_number",
+              "alias": "product_number"
+            },
+            {
+              "type": "STRING",
+              "field": "product_name",
+              "alias": "product_name"
+            },
+            {
+              "type": "STRING",
+              "field": "category_id",
+              "alias": "category_id"
+            },
+            {
+              "type": "STRING",
+              "field": "category",
+              "alias": "category"
+            },
+            {
+              "type": "STRING",
+              "field": "sub_category",
+              "alias": "sub_category"
+            },
+            {
+              "type": "STRING",
+              "field": "product_line",
+              "alias": "product_line"
+            },
+            {
+              "type": "STRING",
+              "field": "maintenance",
+              "alias": "maintenance"
+            },
+            {
+              "type": "INT",
+              "field": "cost",
+              "alias": "cost"
+            },
+            {
+              "type": "DATE",
+              "field": "start_date",
+              "alias": "start_date"
+            }
+          ]
+        }
+      }
+    ],
+    "edges": [
+      {
+        "label": "PURCHASED",
+        "fromVertex": "Customer",
+        "toVertex": "Product",
+        "tableSource": {
+          "catalog": "mssql",
+          "schema": "gold",
+          "table": "fact_sales"
+        },
+        "fromId": {
+          "fields": [
+            {
+              "type": "INT",
+              "field": "customer_key",
+              "alias": "puppy_from_customer_key"
+            }
+          ]
+        },
+        "toId": {
+          "fields": [
+            {
+              "type": "INT",
+              "field": "product_key",
+              "alias": "puppy_to_product_key"
+            }
+          ]
+        },
+        "attributes": [
+          {
+            "type": "STRING",
+            "field": "order_number",
+            "alias": "order_number"
+          },
+          {
+            "type": "INT",
+            "field": "product_key",
+            "alias": "product_key"
+          },
+          {
+            "type": "INT",
+            "field": "customer_key",
+            "alias": "customer_key"
+          },
+          {
+            "type": "DATE",
+            "field": "order_date",
+            "alias": "order_date"
+          },
+          {
+            "type": "DATE",
+            "field": "shipping_date",
+            "alias": "shipping_date"
+          },
+          {
+            "type": "DATE",
+            "field": "due_date",
+            "alias": "due_date"
+          },
+          {
+            "type": "INT",
+            "field": "price",
+            "alias": "price"
+          },
+          {
+            "type": "SHORT",
+            "field": "quantity",
+            "alias": "quantity"
+          },
+          {
+            "type": "INT",
+            "field": "sales_amount",
+            "alias": "sales_amount"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  puppygraph:
+    image: puppygraph/puppygraph:stable
+    container_name: puppygraph
+    environment:
+      - PUPPYGRAPH_USERNAME=puppygraph
+      - PUPPYGRAPH_PASSWORD=puppygraph123
+    ports:
+      - "8081:8081"
+      - "8182:8182"
+      - "7687:7687"
